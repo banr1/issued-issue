@@ -1,7 +1,7 @@
 # issued issue's equation
 
 $$
-v(d) = 1+\frac{1+y(d)}{1+s(d)}
+v(d) = \frac{1+y(d)}{1+s(d)}
 $$
 
 $$
