@@ -73,7 +73,8 @@ def main():
     plt.ylabel('u')
     plt.title("u' of stakers")
     plt.grid(True)
-    plt.show()
+    # plt.show()
+    plt.savefig("u_dash.png")
 
 
 if __name__ == "__main__":
