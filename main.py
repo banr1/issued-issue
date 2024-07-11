@@ -38,7 +38,7 @@ def u_dash(point_b: Point, point_a: Point) -> float:
 
 def main():
     d_b = 50/120 # 50M / 120M
-    d_a = 33/120 # 33M / 120M = 0.275
+    d_a = 33.6/120 # 33.6M / 120M
     F_b = 64
     F_a = 32
 
@@ -55,17 +55,10 @@ def main():
     valid_d_values = []
 
     for d in d_values:
-        try:
-            u = u_dash(Point(d_b, F_b, False), Point(d, F_a, False))
-            if not np.isnan(u) and not np.isinf(u) and isinstance(u, (int, float)):
-                u_values.append(u)
-                valid_d_values.append(d)
-        except Exception as e:
-            print(f"Error at d={d}: {e}")
-
-    if not u_values:
-        print("No valid u values were calculated. Check the function definitions and input parameters.")
-        return
+        u = u_dash(Point(d_b, F_b, False), Point(d, F_a, False))
+        if not np.isnan(u) and not np.isinf(u) and isinstance(u, (int, float)):
+            u_values.append(u)
+            valid_d_values.append(d)
 
     plt.figure(figsize=(10, 6))
     plt.plot(valid_d_values, u_values)
@@ -73,7 +66,6 @@ def main():
     plt.ylabel('u')
     plt.title("u' of stakers")
     plt.grid(True)
-    # plt.show()
     plt.savefig("u_dash.png")
 
 
