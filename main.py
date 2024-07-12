@@ -10,31 +10,35 @@ class Point(NamedTuple):
 
 
 # demand curve y = c1 * sqrt(d) + c2 * d / (1 - d)
-def y(d):
+def y(d: float) -> float:
     c1 = 0.0420881544 # value so that d=25M => y=0.02
     c2 = 0.003
 
     return c1 * math.sqrt(d) + (c2 * d) / (1 - d)
 
+
 # inflation rate s = y_i * d - b (y_i = c * F / sqrt(dS))
-def s(d, F):
+def s(point: Point) -> float:
     c = 2.6
     S = 120000000
     b = 0.008
 
-    return (c * F / math.sqrt(d * S)) * d - b
+    return (c * point.F / math.sqrt(point.d * S)) * point.d - b
 
-def y_p(p: Point):
-    if p.is_y_zero:
-        return 1 / (1 + s(p.d, p.F)) - 1
 
-    return (1 + y(p.d)) / (1 + s(p.d, p.F)) - 1
+def y_p(point: Point) -> float:
+    if point.is_y_zero:
+        return 1 / (1 + s(point)) - 1
+
+    return (1 + y(point.d)) / (1 + s(point)) - 1
+
 
 def u_dash(point_b: Point, point_a: Point) -> float:
     y_p_before = y_p(point_b)
     y_p_after = y_p(point_a)
 
     return (1 + y_p_after) / (1 + y_p_before) - 1
+
 
 def main():
     d_b = 50/120 # 50M / 120M
